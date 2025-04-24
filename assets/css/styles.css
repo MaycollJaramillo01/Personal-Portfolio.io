@@ -530,7 +530,7 @@ body.dark-theme {
   .profile__border {
     width: 135px;
     height: 135px;
-    margin-bottom: 120px;
+    margin-bottom: 20px;
   }
 
   .profile__perfil {
@@ -577,5 +577,6 @@ body.dark-theme {
   row-gap: 2rem;
   column-gap: 2rem;
 }
+
 
 }
