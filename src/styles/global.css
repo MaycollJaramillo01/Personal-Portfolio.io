@@ -1,0 +1,141 @@
+@import "tailwindcss";
+
+@theme {
+  --color-surface: hsl(220 14% 8%);
+  --color-panel: hsl(222 12% 12%);
+  --color-panel-strong: hsl(224 12% 16%);
+  --color-foreground: hsl(0 0% 96%);
+  --color-muted: hsl(215 10% 70%);
+  --color-subtle: hsl(215 10% 55%);
+  --color-border: hsl(220 9% 22%);
+  --color-accent: hsl(42 88% 60%);
+  --color-accent-2: hsl(6 74% 62%);
+  --color-success: hsl(145 48% 56%);
+  --color-info: hsl(202 89% 68%);
+  --font-sans: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --shadow-soft: 0 22px 80px -36px hsl(220 9% 22% / 0.65);
+  --radius-base: 14px;
+}
+
+:root {
+  color-scheme: dark;
+  background: var(--color-surface);
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-surface);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+  min-height: 100vh;
+  margin: 0;
+  text-rendering: optimizeLegibility;
+}
+
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+  transition: color 150ms ease, text-decoration-color 150ms ease;
+}
+
+a:hover {
+  color: var(--color-accent-2);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--color-accent) 35%, transparent);
+  color: var(--color-foreground);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.content {
+  color: var(--color-foreground);
+}
+
+.content p {
+  margin-bottom: 1rem;
+  color: var(--color-muted);
+}
+
+.content h2,
+.content h3,
+.content h4 {
+  color: var(--color-foreground);
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+.content ul {
+  padding-left: 1.25rem;
+  margin-bottom: 1rem;
+  color: var(--color-muted);
+}
+
+.content li {
+  margin-bottom: 0.5rem;
+}
+
+.content code {
+  background: var(--color-panel);
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+  border: 1px solid var(--color-border);
+}
+
+.content pre {
+  background: var(--color-panel-strong);
+  border-radius: 10px;
+  border: 1px solid var(--color-border);
+  padding: 1rem;
+  overflow-x: auto;
+}
+
+.card {
+  background: linear-gradient(160deg, var(--color-panel) 0%, var(--color-panel-strong) 100%);
+  border: 1px solid color-mix(in srgb, var(--color-border) 80%, transparent);
+  border-radius: var(--radius-base);
+  box-shadow: var(--shadow-soft);
+}
+
+.gradient-sheen {
+  position: relative;
+  isolation: isolate;
+}
+
+.gradient-sheen::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 30% 20%, color-mix(in srgb, var(--color-accent) 35%, transparent), transparent 40%),
+    radial-gradient(circle at 80% 20%, color-mix(in srgb, var(--color-accent-2) 35%, transparent), transparent 38%);
+  opacity: 0.25;
+  filter: blur(60px);
+  z-index: -1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

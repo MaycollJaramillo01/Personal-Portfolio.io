@@ -1,0 +1,114 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { SITE } from '../../config/site';
+import { breadcrumbJsonLd } from '../../lib/seo';
+
+const structuredData = [
+  breadcrumbJsonLd([
+    { name: 'Inicio', path: '/es' },
+    { name: 'Sobre mí', path: '/es/about' }
+  ])
+];
+---
+
+<BaseLayout
+  lang="es"
+  title="Sobre Maycoll Jaramillo | Ingeniería, SEO técnico y accesibilidad"
+  description="Perfil senior centrado en Shopify/WordPress, SEO técnico, accesibilidad y automatización para negocios en LATAM, España y EE. UU."
+  canonicalPath="/es/about"
+  alternates={[{ lang: 'en', path: '/en/about' }]}
+  structuredData={structuredData}
+>
+  <section class="mx-auto max-w-5xl px-4 py-12 md:px-6">
+    <p class="text-xs uppercase tracking-[0.2em] text-accent">Sobre mí</p>
+    <h1 class="mt-2 text-3xl font-semibold text-foreground">Ingeniería aplicada a negocio, no solo código</h1>
+    <p class="mt-4 text-muted">
+      Soy {SITE.author}, <strong class="text-foreground">Shopify Developer & Digital Marketing Specialist</strong>. Trabajo remoto desde {SITE.location} con equipos en LATAM, España y EE. UU.
+      Combino desarrollo, SEO técnico y accesibilidad para construir sitios que cargan rápido, se encuentran en Google y convierten.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-5xl px-4 pb-12 md:px-6">
+    <div class="grid gap-4 md:grid-cols-2">
+      <div class="card p-5">
+        <h2 class="text-xl font-semibold text-foreground">Filosofía</h2>
+        <ul class="mt-3 space-y-2 text-muted">
+          <li>• No vendo humo: ingeniería basada en métricas.</li>
+          <li>• Accesibilidad nativa, no parches.</li>
+          <li>• SEO técnico desde la arquitectura.</li>
+          <li>• Performance como requisito, no como extra.</li>
+        </ul>
+      </div>
+      <div class="card p-5">
+        <h2 class="text-xl font-semibold text-foreground">Cómo opero</h2>
+        <ul class="mt-3 space-y-2 text-muted">
+          <li>• Auditoría rápida (CWV, accesibilidad, SEO, tracking) y plan de acción.</li>
+          <li>• Entregables con checklist y criterios de aceptación claros.</li>
+          <li>• Documentación para equipos de contenido/marketing.</li>
+          <li>• Acompañamiento en deploy y medición post-lanzamiento.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-5xl px-4 pb-12 md:px-6">
+    <h2 class="text-2xl font-semibold text-foreground">Experiencia relevante</h2>
+    <div class="mt-4 grid gap-4 md:grid-cols-2">
+      <div class="card p-5">
+        <h3 class="text-lg font-semibold text-foreground">eCommerce y CMS</h3>
+        <p class="mt-2 text-muted">
+          Shopify (Liquid), WordPress a medida y AEM. Refactorizo temas para bajar peso, mejorar CWV y dejar tracking limpio.
+        </p>
+        <ul class="mt-3 space-y-2 text-muted">
+          <li>• Migraciones con redirects y canónicos consistentes.</li>
+          <li>• Plantillas accesibles (filtros, carritos, checkouts).</li>
+          <li>• Control de apps/plugins para evitar bloat.</li>
+        </ul>
+      </div>
+      <div class="card p-5">
+        <h3 class="text-lg font-semibold text-foreground">SEO técnico y datos estructurados</h3>
+        <p class="mt-2 text-muted">
+          Arquitectura de sitemaps, hreflang ES/EN, schema Person/WebSite/ProfilePage y validación continua.
+        </p>
+        <ul class="mt-3 space-y-2 text-muted">
+          <li>• Limpieza de thin content y canonicals claros.</li>
+          <li>• Breadcrumbs y JSON-LD validados con Rich Results Test.</li>
+          <li>• Monitoreo de cobertura en GSC y ajustes iterativos.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-5xl px-4 pb-16 md:px-6">
+    <div class="card p-6">
+      <h2 class="text-xl font-semibold text-foreground">Disponibilidad y contacto</h2>
+      <p class="mt-2 text-muted">
+        Trabajo en proyectos de 4 a 12 semanas o en engagement continuo como asesor técnico. Si necesitas performance, accesibilidad o SEO técnico, hablemos.
+      </p>
+      <div class="mt-4 flex flex-wrap gap-3">
+        <a
+          class="inline-flex items-center justify-center rounded-full bg-accent px-4 py-2 text-sm font-semibold text-surface shadow-soft transition hover:bg-accent-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-surface"
+          href={`mailto:${SITE.email}?subject=Proyecto%20%2F%20Consultoria`}
+        >
+          Escribirme
+        </a>
+        <a
+          class="inline-flex items-center justify-center rounded-full border border-border/70 bg-panel px-4 py-2 text-sm font-semibold text-foreground transition hover:border-accent hover:text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+          href={SITE.social.linkedin}
+          target="_blank"
+          rel="noopener"
+        >
+          LinkedIn
+        </a>
+        <a
+          class="inline-flex items-center justify-center rounded-full border border-border/70 bg-panel px-4 py-2 text-sm font-semibold text-foreground transition hover:border-accent hover:text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+          href={SITE.social.github}
+          target="_blank"
+          rel="noopener"
+        >
+          GitHub
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

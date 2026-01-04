@@ -1,0 +1,187 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CaseStudyCard from '../../components/CaseStudyCard.astro';
+import Hero from '../../components/Hero.astro';
+import PostCard from '../../components/PostCard.astro';
+import StackGroup from '../../components/StackGroup.astro';
+import { CONTACT_CTA, SITE } from '../../config/site';
+import { breadcrumbJsonLd } from '../../lib/seo';
+
+const caseStudies = (await getCollection('case-studies')).sort(
+  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
+const posts = (await getCollection('blog'))
+  .filter((post) => post.data.lang === 'es')
+  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+
+const stackItems = [
+  {
+    title: 'Performance & Frontend',
+    capabilities: ['React, Astro, Tailwind', 'Optimización CWV (LCP/CLS/INP)', 'Islas interactivas solo cuando aporta'],
+    proofs: [
+      'Hero y componentes críticos con tamaños fijos y preload medido.',
+      'Refactor para CLS=0 en sliders y menús móviles.',
+      'RUM ligero para detectar regresiones en móviles.'
+    ]
+  },
+  {
+    title: 'Backend & Data',
+    capabilities: ['Node.js, PHP', 'PostgreSQL/MySQL', 'Firebase'],
+    proofs: [
+      'APIs cacheadas y seguras, con logs claros.',
+      'Modelado de datos para reporting de conversión.',
+      'Deploys reproducibles en Vercel/Netlify.'
+    ]
+  },
+  {
+    title: 'Enterprise & CMS',
+    capabilities: ['AEM', 'Shopify Liquid', 'WordPress a medida'],
+    proofs: [
+      'Temas livianos sin plugins/Apps innecesarias.',
+      'Patrones de componentes accesibles y reusables.',
+      'Migraciones con redirects y canónicos consistentes.'
+    ]
+  },
+  {
+    title: 'Marketing Tech',
+    capabilities: ['GHL', 'WhatsApp Business API', 'GA4/Meta Pixel'],
+    proofs: [
+      'Implementación de schema + optimización de indexación.',
+      'Eventos de conversión sin scripts duplicados.',
+      'Automatizaciones con opt-in y trazabilidad.'
+    ]
+  }
+];
+
+const structuredData = [
+  breadcrumbJsonLd([
+    { name: 'Inicio', path: '/es' }
+  ])
+];
+---
+
+<BaseLayout
+  lang="es"
+  title="Ingeniero de Software Senior · SEO Técnico · Accesibilidad"
+  description={SITE.description}
+  canonicalPath="/es"
+  alternates={[{ lang: 'en', path: '/en' }]}
+  structuredData={structuredData}
+>
+  <Hero
+    eyebrow="Shopify Developer & Digital Marketing Specialist"
+    title="Ingeniero de Software Senior · SEO Técnico · Accesibilidad"
+    subtitle="Construyo infraestructuras web rápidas, accesibles y orientadas a conversión para LATAM, España y EE. UU."
+    description="Combino desarrollo (Shopify/WordPress/React), SEO técnico y automatización para entregar sitios medibles y listos para negocio. Sin efectos innecesarios ni dependencias pesadas."
+    primary={{ label: 'Agendar llamada', href: CONTACT_CTA.primary.href }}
+    secondary={{ label: 'Ver casos de estudio', href: '/work' }}
+    bullets={[
+      'Arquitectura limpia con Astro/Shopify/WordPress y medición desde el diseño.',
+      'Accesibilidad WCAG/ADA y foco en journeys críticos (checkout, formularios).',
+      'Tracking GA4/Pixel/Server sin bloquear performance ni duplicar eventos.'
+    ]}
+  />
+
+  <section class="mx-auto max-w-6xl px-4 py-12 md:px-6">
+    <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+      <div>
+        <p class="text-xs uppercase tracking-[0.2em] text-accent">Servicios / Cómo trabajo</p>
+        <h2 class="mt-2 text-2xl font-semibold text-foreground">Ingeniería orientada a resultados</h2>
+        <p class="mt-2 max-w-3xl text-muted">
+          Trabajo con equipos que necesitan velocidad, cumplimiento WCAG y SEO técnico real. Diseño el stack, ejecuto y dejo documentación para que el equipo interno pueda mantenerlo.
+        </p>
+      </div>
+      <div class="flex flex-wrap gap-2">
+        <span class="rounded-full bg-panel px-3 py-2 text-xs text-foreground/85 border border-border/70">Performance como requisito</span>
+        <span class="rounded-full bg-panel px-3 py-2 text-xs text-foreground/85 border border-border/70">Accesibilidad nativa</span>
+        <span class="rounded-full bg-panel px-3 py-2 text-xs text-foreground/85 border border-border/70">SEO técnico desde la arquitectura</span>
+        <span class="rounded-full bg-panel px-3 py-2 text-xs text-foreground/85 border border-border/70">CRO y tracking auditables</span>
+      </div>
+    </div>
+    <div class="mt-6 grid gap-4 md:grid-cols-2">
+      <div class="card p-5">
+        <h3 class="text-lg font-semibold text-foreground">Planes de acción claros</h3>
+        <p class="mt-2 text-muted">No vendo humo: ingeniería basada en métricas. Cada entrega incluye checklist de verificación (CWV, accesibilidad, SEO) y pasos siguientes.</p>
+      </div>
+      <div class="card p-5">
+        <h3 class="text-lg font-semibold text-foreground">Operación documentada</h3>
+        <p class="mt-2 text-muted">Guías para equipos de contenido y marketing: cómo publicar sin romper CWV ni accesibilidad, y cómo medir conversiones sin duplicar eventos.</p>
+      </div>
+    </div>
+  </section>
+
+  <StackGroup
+    heading="Stack contextualizado"
+    description="No es una lista de logos. Cada herramienta se usa con propósito y con pruebas medibles."
+    items={stackItems}
+  />
+
+  <section class="mx-auto max-w-6xl px-4 py-12 md:px-6">
+    <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+      <div>
+        <p class="text-xs uppercase tracking-[0.2em] text-accent">Casos destacados</p>
+        <h2 class="text-2xl font-semibold text-foreground">STAR: situación, tarea, acción, resultado</h2>
+        <p class="mt-2 max-w-3xl text-muted">Trabajo solo con resultados verificables. Si no hay métricas públicas, las entrego bajo solicitud con el contexto correcto.</p>
+      </div>
+      <a
+        class="inline-flex items-center gap-2 rounded-full border border-border/70 bg-panel px-4 py-2 text-sm font-semibold text-foreground transition hover:border-accent hover:text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+        href="/work"
+      >
+        Ver todos los casos
+      </a>
+    </div>
+    <div class="mt-6 grid gap-4 md:grid-cols-2">
+      {caseStudies.slice(0, 4).map((study) => (
+        <CaseStudyCard study={study} />
+      ))}
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-4 py-12 md:px-6">
+    <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+      <div>
+        <p class="text-xs uppercase tracking-[0.2em] text-accent">Blog técnico</p>
+        <h2 class="text-2xl font-semibold text-foreground">SEO técnico, accesibilidad y medición</h2>
+        <p class="mt-2 max-w-3xl text-muted">Guías sin relleno, centradas en procesos repetibles para equipos de producto y marketing.</p>
+      </div>
+      <a
+        class="inline-flex items-center gap-2 rounded-full border border-border/70 bg-panel px-4 py-2 text-sm font-semibold text-foreground transition hover:border-accent hover:text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+        href="/blog"
+      >
+        Ver blog
+      </a>
+    </div>
+    <div class="mt-6 grid gap-4 md:grid-cols-3">
+      {posts.slice(0, 3).map((post) => (
+        <PostCard post={post} />
+      ))}
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-4 pb-16 md:px-6">
+    <div class="card flex flex-col gap-4 p-6 md:flex-row md:items-center md:justify-between">
+      <div>
+        <p class="text-xs uppercase tracking-[0.2em] text-accent">Próximo paso</p>
+        <h2 class="text-xl font-semibold text-foreground">Hablemos de tu stack y tus métricas</h2>
+        <p class="mt-2 max-w-2xl text-muted">
+          En la primera llamada reviso el estado actual (performance, accesibilidad, tracking) y propongo un plan accionable. Sin scripts pesados ni promesas infladas.
+        </p>
+      </div>
+      <div class="flex flex-wrap gap-3">
+        <a
+          class="inline-flex items-center justify-center rounded-full bg-accent px-4 py-2 text-sm font-semibold text-surface shadow-soft transition hover:bg-accent-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-surface"
+          href={CONTACT_CTA.primary.href}
+        >
+          Agendar llamada
+        </a>
+        <a
+          class="inline-flex items-center justify-center rounded-full border border-border/70 bg-panel px-4 py-2 text-sm font-semibold text-foreground transition hover:border-accent hover:text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+          href="/es/services"
+        >
+          Ver servicios
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,113 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { SITE } from '../../config/site';
+import { breadcrumbJsonLd } from '../../lib/seo';
+
+const structuredData = [
+  breadcrumbJsonLd([
+    { name: 'Home', path: '/en' },
+    { name: 'About', path: '/en/about' }
+  ])
+];
+---
+
+<BaseLayout
+  lang="en"
+  title="About Maycoll Jaramillo | Engineering, Technical SEO, Accessibility"
+  description="Senior profile focused on Shopify/WordPress, technical SEO, accessibility, and automation for LATAM, Spain, and US teams."
+  canonicalPath="/en/about"
+  alternates={[{ lang: 'es', path: '/es/about' }]}
+  structuredData={structuredData}
+>
+  <section class="mx-auto max-w-5xl px-4 py-12 md:px-6">
+    <p class="text-xs uppercase tracking-[0.2em] text-accent">About</p>
+    <h1 class="mt-2 text-3xl font-semibold text-foreground">Engineering that serves the business</h1>
+    <p class="mt-4 text-muted">
+      I am {SITE.author}, a <strong class="text-foreground">Shopify Developer & Digital Marketing Specialist</strong> based in {SITE.location}. I work remotely with teams across LATAM, Spain, and the US, building fast, accessible, and measurable experiences.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-5xl px-4 pb-12 md:px-6">
+    <div class="grid gap-4 md:grid-cols-2">
+      <div class="card p-5">
+        <h2 class="text-xl font-semibold text-foreground">Principles</h2>
+        <ul class="mt-3 space-y-2 text-muted">
+          <li>• No fluff: engineering backed by metrics.</li>
+          <li>• Accessibility by default, not as a patch.</li>
+          <li>• Technical SEO from the architecture up.</li>
+          <li>• Performance is a requirement, not a feature.</li>
+        </ul>
+      </div>
+      <div class="card p-5">
+        <h2 class="text-xl font-semibold text-foreground">How I operate</h2>
+        <ul class="mt-3 space-y-2 text-muted">
+          <li>• Rapid audit (CWV, accessibility, SEO, tracking) and action plan.</li>
+          <li>• Deliverables with clear acceptance criteria.</li>
+          <li>• Documentation for content/marketing teams.</li>
+          <li>• Support through launch and measurement.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-5xl px-4 pb-12 md:px-6">
+    <h2 class="text-2xl font-semibold text-foreground">Relevant experience</h2>
+    <div class="mt-4 grid gap-4 md:grid-cols-2">
+      <div class="card p-5">
+        <h3 class="text-lg font-semibold text-foreground">eCommerce and CMS</h3>
+        <p class="mt-2 text-muted">
+          Shopify (Liquid), custom WordPress, and AEM. I refactor themes to cut weight, improve CWV, and keep tracking clean.
+        </p>
+        <ul class="mt-3 space-y-2 text-muted">
+          <li>• Migrations with redirects and consistent canonicals.</li>
+          <li>• Accessible templates (filters, carts, checkouts).</li>
+          <li>• Plugin/app control to avoid bloat.</li>
+        </ul>
+      </div>
+      <div class="card p-5">
+        <h3 class="text-lg font-semibold text-foreground">Technical SEO & structured data</h3>
+        <p class="mt-2 text-muted">
+          Sitemap architecture, ES/EN hreflang, Person/WebSite/ProfilePage schema, and continuous validation.
+        </p>
+        <ul class="mt-3 space-y-2 text-muted">
+          <li>• Thin content cleanup and solid canonicals.</li>
+          <li>• Breadcrumbs and JSON-LD validated with Rich Results Test.</li>
+          <li>• Coverage monitoring in GSC with iterative fixes.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-5xl px-4 pb-16 md:px-6">
+    <div class="card p-6">
+      <h2 class="text-xl font-semibold text-foreground">Availability</h2>
+      <p class="mt-2 text-muted">
+        I join 4–12 week projects or ongoing engagements as a technical advisor. If you need performance, accessibility, or technical SEO, let's talk.
+      </p>
+      <div class="mt-4 flex flex-wrap gap-3">
+        <a
+          class="inline-flex items-center justify-center rounded-full bg-accent px-4 py-2 text-sm font-semibold text-surface shadow-soft transition hover:bg-accent-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-surface"
+          href={`mailto:${SITE.email}?subject=Project%20%2F%20Consulting`}
+        >
+          Email me
+        </a>
+        <a
+          class="inline-flex items-center justify-center rounded-full border border-border/70 bg-panel px-4 py-2 text-sm font-semibold text-foreground transition hover:border-accent hover:text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+          href={SITE.social.linkedin}
+          target="_blank"
+          rel="noopener"
+        >
+          LinkedIn
+        </a>
+        <a
+          class="inline-flex items-center justify-center rounded-full border border-border/70 bg-panel px-4 py-2 text-sm font-semibold text-foreground transition hover:border-accent hover:text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+          href={SITE.social.github}
+          target="_blank"
+          rel="noopener"
+        >
+          GitHub
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

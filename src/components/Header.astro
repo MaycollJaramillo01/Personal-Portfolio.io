@@ -1,0 +1,137 @@
+﻿---
+import { CONTACT_CTA } from '../config/site';
+import { LANGUAGE_SWITCH, NAV_LINKS } from '../data/navigation';
+
+interface Props {
+  lang?: 'es' | 'en';
+}
+
+const lang = Astro.props.lang ?? 'es';
+const links = NAV_LINKS[lang];
+const langSwitch = LANGUAGE_SWITCH[lang];
+const homeHref = lang === 'es' ? '/es' : '/en';
+const contactCta = lang === 'es' ? 'Agendar llamada' : 'Book a call';
+const homeLabel = lang === 'es' ? 'Volver al inicio' : 'Back to home';
+const subtitle = lang === 'es' ? 'Shopify | SEO tecnico' : 'Shopify | Technical SEO';
+const navLabel = lang === 'es' ? 'Navegacion principal' : 'Primary navigation';
+const mobileLabel = lang === 'es' ? 'Menu movil' : 'Mobile menu';
+---
+
+<header class="sticky top-0 z-40 border-b border-border/60 bg-surface/90 backdrop-blur supports-[backdrop-filter]:bg-surface/70">
+  <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 md:px-6">
+    <div class="flex items-center gap-3">
+      <a class="flex items-center gap-3 rounded-full px-3 py-2 text-sm font-semibold text-foreground/90 transition hover:text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent" href={homeHref} aria-label={homeLabel}>
+        <span class="grid h-10 w-10 place-items-center rounded-full bg-gradient-to-br from-accent to-accent-2 text-surface font-semibold shadow-soft">
+          MJ
+        </span>
+        <span class="hidden text-left leading-tight sm:block">
+          <span class="block text-foreground">Maycoll Jaramillo</span>
+          <span class="block text-xs text-muted">{subtitle}</span>
+        </span>
+      </a>
+    </div>
+
+    <nav class="hidden items-center gap-8 text-sm font-medium text-muted md:flex" aria-label={navLabel}>
+      {links.map((item) => (
+        <a
+          class="rounded-full px-3 py-2 text-foreground/80 transition hover:text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+          href={item.href}
+        >
+          {item.label}
+        </a>
+      ))}
+    </nav>
+
+    <div class="hidden items-center gap-3 md:flex">
+      <a
+        class="rounded-full border border-border/70 bg-panel px-4 py-2 text-sm font-semibold text-foreground transition hover:border-accent hover:text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+        href={langSwitch.href}
+        hreflang={langSwitch.label === 'English' ? 'en' : 'es'}
+      >
+        {langSwitch.label}
+      </a>
+      <a
+        class="rounded-full bg-accent px-4 py-2 text-sm font-semibold text-surface shadow-soft transition hover:bg-accent-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-surface"
+        href={CONTACT_CTA.primary.href}
+      >
+        {contactCta}
+      </a>
+    </div>
+
+    <div class="flex items-center gap-3 md:hidden">
+      <a
+        class="rounded-full border border-border/70 bg-panel px-3 py-2 text-xs font-semibold text-foreground transition hover:border-accent hover:text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+        href={langSwitch.href}
+        hreflang={langSwitch.label === 'English' ? 'en' : 'es'}
+      >
+        {langSwitch.label}
+      </a>
+      <button
+        type="button"
+        class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border/70 bg-panel text-foreground transition hover:border-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+        aria-expanded="false"
+        aria-controls="mobile-nav"
+        data-nav-toggle
+      >
+        <span class="sr-only">Toggle navigation</span>
+        <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div id="mobile-nav" class="hidden border-t border-border/60 bg-surface md:hidden" aria-label={mobileLabel}>
+    <div class="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-4 text-sm">
+      {links.map((item) => (
+        <a
+          class="rounded-lg px-3 py-2 text-foreground/90 transition hover:bg-panel hover:text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+          href={item.href}
+        >
+          {item.label}
+        </a>
+      ))}
+      <div class="mt-2 grid grid-cols-1 gap-2 sm:grid-cols-2">
+        <a
+          class="flex items-center justify-center gap-2 rounded-lg border border-border/70 bg-panel px-3 py-2 text-foreground transition hover:border-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+          href={langSwitch.href}
+        >
+          {langSwitch.label}
+        </a>
+        <a
+          class="flex items-center justify-center gap-2 rounded-lg bg-accent px-3 py-2 text-surface font-semibold shadow-soft transition hover:bg-accent-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-surface"
+          href={CONTACT_CTA.primary.href}
+        >
+          {contactCta}
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const navToggle = document.querySelector('[data-nav-toggle]');
+    const mobileNav = document.getElementById('mobile-nav');
+
+    if (navToggle instanceof HTMLElement && mobileNav) {
+      const toggleMenu = () => {
+        const isOpen = mobileNav.classList.toggle('hidden');
+        navToggle.setAttribute('aria-expanded', String(!isOpen));
+      };
+
+      navToggle.addEventListener('click', toggleMenu);
+
+      mobileNav.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', () => {
+          if (!mobileNav.classList.contains('hidden')) toggleMenu();
+        });
+      });
+
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && !mobileNav.classList.contains('hidden')) {
+          toggleMenu();
+          navToggle.focus();
+        }
+      });
+    }
+  </script>
+</header>

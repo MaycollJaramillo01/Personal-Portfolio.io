@@ -1,0 +1,80 @@
+---
+import Seo from '../components/Seo.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { SITE_ORIGIN } from '../config/site';
+import '../styles/global.css';
+import { personJsonLd, profilePageJsonLd, websiteJsonLd, type StructuredData } from '../lib/seo';
+
+interface AlternateLink {
+  lang: 'es' | 'en';
+  path: string;
+}
+
+interface Props {
+  title: string;
+  description: string;
+  lang?: 'es' | 'en';
+  canonicalPath?: string;
+  ogImage?: string;
+  noindex?: boolean;
+  structuredData?: StructuredData[];
+  alternates?: AlternateLink[];
+}
+
+const {
+  title,
+  description,
+  lang = 'es',
+  canonicalPath = Astro.url.pathname,
+  ogImage,
+  noindex = false,
+  structuredData = [],
+  alternates = []
+} = Astro.props;
+
+const canonical = canonicalPath.startsWith('http')
+  ? canonicalPath
+  : new URL(canonicalPath, SITE_ORIGIN).toString();
+
+const alternateLinks = alternates.map((alt) => ({
+  hrefLang: alt.lang,
+  href: alt.path.startsWith('http') ? alt.path : new URL(alt.path, SITE_ORIGIN).toString()
+}));
+
+const defaultStructuredData: StructuredData[] = [
+  personJsonLd(),
+  websiteJsonLd(),
+  profilePageJsonLd({ title, description, path: canonicalPath })
+];
+---
+
+<!DOCTYPE html>
+<html lang={lang}>
+  <head>
+    <Seo
+      title={title}
+      description={description}
+      canonical={canonical}
+      lang={lang}
+      ogImage={ogImage}
+      noindex={noindex}
+      alternates={alternateLinks}
+      structuredData={[...defaultStructuredData, ...structuredData]}
+    />
+    <link rel="alternate" hreflang="x-default" href={new URL('/es', SITE_ORIGIN).toString()} />
+  </head>
+  <body class="bg-surface text-foreground antialiased">
+    <a
+      href="#main"
+      class="sr-only bg-accent px-3 py-2 font-semibold text-surface focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:outline-none"
+    >
+      {lang === 'es' ? 'Saltar al contenido principal' : 'Skip to main content'}
+    </a>
+    <Header lang={lang} />
+    <main id="main" class="pb-16 pt-8">
+      <slot />
+    </main>
+    <Footer lang={lang} />
+  </body>
+</html>

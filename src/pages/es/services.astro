@@ -1,0 +1,131 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { CONTACT_CTA } from '../../config/site';
+import { breadcrumbJsonLd } from '../../lib/seo';
+
+const services = [
+  {
+    title: 'Delivery técnico',
+    items: [
+      'Sitios Astro/Shopify/WordPress con CWV y accesibilidad desde el diseño.',
+      'Temas Shopify Liquid livianos, sin apps innecesarias y con tracking limpio.',
+      'WordPress a medida con hardening, caché coherente y guías para contenido.'
+    ]
+  },
+  {
+    title: 'SEO técnico y datos estructurados',
+    items: [
+      'Arquitectura de sitemaps + hreflang ES/EN, canónicos y paginación correcta.',
+      'Schema JSON-LD: Person, WebSite, ProfilePage y BreadcrumbList por plantilla.',
+      'Auditorías de indexación y limpieza de thin content.'
+    ]
+  },
+  {
+    title: 'Accesibilidad y UX robusta',
+    items: [
+      'Patrones accesibles para navegación, filtros, carritos y checkouts.',
+      'Estados de foco visibles, roles/aria solo cuando se necesita.',
+      'Validación WCAG AA/AAA en flujos críticos y documentación de uso.'
+    ]
+  },
+  {
+    title: 'Medición y automatización',
+    items: [
+      'Implementación GA4 + Pixel sin duplicados ni bloqueos de render.',
+      'Automatizaciones GHL/WhatsApp Business API con opt-in y trazabilidad.',
+      'Dashboards ligeros y alertas para CWV y conversiones.'
+    ]
+  }
+];
+
+const structuredData = [
+  breadcrumbJsonLd([
+    { name: 'Inicio', path: '/es' },
+    { name: 'Servicios', path: '/es/services' }
+  ])
+];
+---
+
+<BaseLayout
+  lang="es"
+  title="Servicios | Performance, SEO técnico, accesibilidad"
+  description="Implementación y consultoría en Shopify, WordPress y Astro con foco en CWV, accesibilidad y medición de conversión."
+  canonicalPath="/es/services"
+  alternates={[{ lang: 'en', path: '/en/services' }]}
+  structuredData={structuredData}
+>
+  <section class="mx-auto max-w-5xl px-4 py-12 md:px-6">
+    <p class="text-xs uppercase tracking-[0.2em] text-accent">Servicios</p>
+    <h1 class="mt-2 text-3xl font-semibold text-foreground">Implementación y consultoría senior</h1>
+    <p class="mt-4 text-muted">
+      Entrego sitios y sistemas listos para negocio: rápidos, accesibles y medibles. Trabajo con equipos que necesitan resultados claros y documentación para operar sin fricción.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-5xl px-4 pb-12 md:px-6">
+    <h2 class="text-2xl font-semibold text-foreground">Oferta</h2>
+    <div class="mt-6 grid gap-4 md:grid-cols-2">
+      {services.map((service) => (
+        <article class="card p-5">
+          <h3 class="text-lg font-semibold text-foreground">{service.title}</h3>
+          <ul class="mt-3 space-y-2 text-muted">
+            {service.items.map((item) => (
+              <li class="flex items-start gap-2">
+                <span class="mt-1 inline-block h-2 w-2 rounded-full bg-accent"></span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-5xl px-4 pb-12 md:px-6">
+    <h2 class="text-2xl font-semibold text-foreground">Filosofía de trabajo</h2>
+    <div class="mt-4 grid gap-4 md:grid-cols-2">
+      <div class="card p-5">
+        <p class="font-semibold text-foreground">No vendo humo</p>
+        <p class="mt-2 text-muted">Ingeniería basada en métricas y criterios de aceptación claros.</p>
+      </div>
+      <div class="card p-5">
+        <p class="font-semibold text-foreground">Accesibilidad nativa</p>
+        <p class="mt-2 text-muted">Patrones accesibles en componentes críticos, con foco visibles y navegación por teclado.</p>
+      </div>
+      <div class="card p-5">
+        <p class="font-semibold text-foreground">SEO desde la arquitectura</p>
+        <p class="mt-2 text-muted">Hreflang, canónicos, schema y sitemaps integrados en la base del proyecto.</p>
+      </div>
+      <div class="card p-5">
+        <p class="font-semibold text-foreground">Performance como requisito</p>
+        <p class="mt-2 text-muted">CWV medidos en cada entrega y sin dependencias pesadas.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-5xl px-4 pb-16 md:px-6">
+    <div class="card flex flex-col gap-4 p-6 md:flex-row md:items-center md:justify-between">
+      <div>
+        <p class="text-xs uppercase tracking-[0.2em] text-accent">¿Qué sigue?</p>
+        <h2 class="text-xl font-semibold text-foreground">Cuéntame tu contexto</h2>
+        <p class="mt-2 max-w-2xl text-muted">
+          En una llamada revisamos tu stack, tus métricas actuales y definimos un plan de acción con prioridades claras.
+        </p>
+      </div>
+      <div class="flex flex-wrap gap-3">
+        <a
+          class="inline-flex items-center justify-center rounded-full bg-accent px-4 py-2 text-sm font-semibold text-surface shadow-soft transition hover:bg-accent-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-surface"
+          href={CONTACT_CTA.primary.href}
+        >
+          Agendar llamada
+        </a>
+        <a
+          class="inline-flex items-center justify-center rounded-full border border-border/70 bg-panel px-4 py-2 text-sm font-semibold text-foreground transition hover:border-accent hover:text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+          href="/work"
+        >
+          Ver casos
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

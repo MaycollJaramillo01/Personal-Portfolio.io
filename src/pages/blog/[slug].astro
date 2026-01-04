@@ -1,0 +1,53 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { articleJsonLd, breadcrumbJsonLd } from '../../lib/seo';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post }
+  }));
+}
+
+const { post } = Astro.props as { post: CollectionEntry<'blog'> };
+const { Content } = await post.render();
+const lang = post.data.lang ?? 'es';
+const formattedDate = new Date(post.data.date).toLocaleDateString(lang, {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric'
+});
+
+const structuredData = [
+  breadcrumbJsonLd([
+    { name: 'Blog', path: '/blog' },
+    { name: post.data.title, path: `/blog/${post.slug}` }
+  ]),
+  articleJsonLd(post)
+];
+---
+
+<BaseLayout
+  lang={lang}
+  title={`${post.data.title} | Blog`}
+  description={post.data.seo.description}
+  canonicalPath={`/blog/${post.slug}`}
+  structuredData={structuredData}
+>
+  <article class="mx-auto max-w-4xl px-4 py-12 md:px-6">
+    <p class="text-xs uppercase tracking-[0.2em] text-accent">Blog</p>
+    <h1 class="mt-2 text-3xl font-semibold text-foreground">{post.data.title}</h1>
+    <p class="mt-2 text-muted">{formattedDate}</p>
+    <div class="mt-3 flex flex-wrap gap-2">
+      {post.data.tags.map((tag) => (
+        <span class="rounded-full border border-border/70 bg-panel px-3 py-1 text-xs text-foreground/80">{tag}</span>
+      ))}
+    </div>
+    <div class="mt-6 content">
+      <Content />
+    </div>
+  </article>
+</BaseLayout>

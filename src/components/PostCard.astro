@@ -1,0 +1,37 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  post: CollectionEntry<'blog'>;
+}
+
+const { post } = Astro.props;
+const formattedDate = new Date(post.data.date).toLocaleDateString(post.data.lang ?? 'es', {
+  year: 'numeric',
+  month: 'short',
+  day: 'numeric'
+});
+---
+
+<article class="card flex h-full flex-col gap-3 p-5">
+  <div class="flex items-start justify-between gap-3">
+    <div>
+      <p class="text-xs uppercase tracking-[0.18em] text-accent">Blog</p>
+      <h3 class="mt-1 text-lg font-semibold text-foreground">{post.data.title}</h3>
+      <p class="text-sm text-muted">{formattedDate}</p>
+    </div>
+    <div class="flex flex-wrap gap-1">
+      {post.data.tags.slice(0, 3).map((tag) => (
+        <span class="rounded-full bg-panel px-2 py-1 text-[11px] text-foreground/80 border border-border/70">{tag}</span>
+      ))}
+    </div>
+  </div>
+  <p class="text-sm text-foreground/85">{post.data.excerpt}</p>
+  <a
+    class="mt-auto inline-flex items-center gap-2 rounded-full border border-border/70 bg-panel px-4 py-2 text-sm font-semibold text-foreground transition hover:border-accent hover:text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+    href={`/blog/${post.slug}`}
+  >
+    {post.data.lang === 'es' ? 'Leer' : 'Read'}
+    <span aria-hidden="true">→</span>
+  </a>
+</article>

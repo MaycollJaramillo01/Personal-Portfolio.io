@@ -1,0 +1,54 @@
+---
+interface StackItem {
+  title: string;
+  capabilities: string[];
+  proofs: string[];
+}
+
+interface Props {
+  heading: string;
+  description?: string;
+  items: StackItem[];
+  tagLabel?: string;
+}
+
+const { heading, description, items, tagLabel = 'Entrega verificable' } = Astro.props;
+---
+
+<section class="mx-auto max-w-6xl px-4 py-12 md:px-6">
+  <div class="flex flex-col gap-3 md:flex-row md:items-baseline md:justify-between">
+    <div>
+      <p class="text-xs uppercase tracking-[0.2em] text-accent">{heading}</p>
+      {description && <p class="mt-2 max-w-2xl text-muted">{description}</p>}
+    </div>
+  </div>
+  <div class="mt-6 grid gap-4 md:grid-cols-2">
+    {items.map((group) => (
+      <article class="card h-full p-5">
+        <header class="mb-4 flex items-center justify-between gap-3">
+          <h3 class="text-lg font-semibold text-foreground">{group.title}</h3>
+          <span class="rounded-full bg-panel px-3 py-1 text-xs text-muted">{tagLabel}</span>
+        </header>
+        <div class="space-y-3 text-sm text-foreground/85">
+          <p class="font-medium text-foreground">Capacidades:</p>
+          <ul class="grid gap-2 sm:grid-cols-2">
+            {group.capabilities.map((item) => (
+              <li class="rounded-lg border border-border/70 bg-panel/70 px-3 py-2 text-foreground/90">
+                {item}
+              </li>
+            ))}
+          </ul>
+          <p class="mt-4 font-medium text-foreground">Pruebas:</p>
+          <ul class="space-y-2">
+            {group.proofs.map((proof) => (
+              <li class="flex items-start gap-2 text-muted">
+                <span class="mt-1 inline-block h-2 w-2 rounded-full bg-accent"></span>
+                <span>{proof}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </article>
+    ))}
+  </div>
+</section>
