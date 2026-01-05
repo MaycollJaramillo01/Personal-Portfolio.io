@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - master
+      - version-diciembre
   workflow_dispatch:
 
 permissions:
