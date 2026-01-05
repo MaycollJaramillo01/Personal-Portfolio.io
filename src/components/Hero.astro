@@ -42,19 +42,18 @@ const {
 } = Astro.props;
 ---
 
-<section class="relative overflow-hidden">
-  <div class="gradient-sheen absolute inset-0 opacity-80" aria-hidden="true"></div>
-  <div class="relative mx-auto grid max-w-6xl gap-10 px-4 pb-16 pt-10 lg:grid-cols-2 lg:items-center lg:px-6">
-    <div class="space-y-6">
+<section class="section-animate">
+  <div class="mx-auto grid max-w-6xl gap-10 px-4 pb-12 pt-10 lg:grid-cols-2 lg:items-center lg:px-6">
+    <div class="space-y-5">
       {eyebrow && <p class="text-xs uppercase tracking-[0.2em] text-accent">{eyebrow}</p>}
-      <h1 class="text-balance text-3xl font-semibold leading-tight text-foreground sm:text-4xl lg:text-5xl">
+      <h1 class="text-balance text-4xl font-semibold leading-tight text-foreground sm:text-5xl">
         {title}
       </h1>
-      <p class="text-lg text-muted sm:text-xl">{subtitle}</p>
-      <p class="max-w-2xl text-base text-foreground/80">{description}</p>
+      <p class="lead">{subtitle}</p>
+      <p class="max-w-2xl text-base text-foreground/85">{description}</p>
       <div class="flex flex-wrap items-center gap-3">
         <a
-          class="inline-flex items-center justify-center rounded-full bg-accent px-5 py-3 text-sm font-semibold text-surface shadow-soft transition hover:bg-accent-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-surface"
+          class="inline-flex items-center justify-center rounded-full bg-accent px-5 py-3 text-sm font-semibold text-surface transition hover:bg-accent-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-surface"
           href={primary.href}
         >
           {primary.label}
@@ -69,9 +68,9 @@ const {
         )}
       </div>
       {bullets.length > 0 && (
-        <ul class="grid gap-3 sm:grid-cols-2">
+        <ul class="grid gap-2 sm:grid-cols-2">
           {bullets.map((item) => (
-            <li class="flex items-start gap-2 rounded-lg border border-border/70 bg-panel/70 px-3 py-2 text-sm text-foreground/90">
+            <li class="flex items-start gap-2 text-sm text-foreground/85">
               <span class="mt-0.5 inline-block h-2 w-2 rounded-full bg-accent"></span>
               <span>{item}</span>
             </li>
@@ -79,20 +78,18 @@ const {
         </ul>
       )}
     </div>
-    <div class="card relative h-full overflow-hidden p-6">
-      <div class="flex flex-col gap-4">
-        <div class="flex items-center justify-between">
-          <p class="text-sm font-semibold text-foreground/90">{sidebarTitle}</p>
-          <span class="rounded-full bg-panel px-3 py-1 text-xs text-foreground/80">{sidebarTag}</span>
-        </div>
-        <div class="space-y-3 text-sm text-foreground/85">
-          {callouts.map((item) => (
-            <div class="rounded-lg border border-border/70 bg-panel/70 p-3">
-              <p class="text-xs uppercase tracking-[0.2em] text-accent">{item.title}</p>
-              <p class="mt-2 text-foreground/90">{item.body}</p>
-            </div>
-          ))}
-        </div>
+    <div class="space-y-3 border border-border/70 bg-panel px-4 py-4 rounded-2xl">
+      <div class="flex items-center justify-between">
+        <p class="text-sm font-semibold text-foreground/90">{sidebarTitle}</p>
+        <span class="rounded-full bg-panel px-3 py-1 text-xs text-foreground/80">{sidebarTag}</span>
+      </div>
+      <div class="space-y-3 text-sm text-foreground/85">
+        {callouts.map((item) => (
+          <div class="rounded-md border border-border/60 bg-panel px-3 py-2">
+            <p class="text-[11px] uppercase tracking-[0.18em] text-accent">{item.title}</p>
+            <p class="mt-1 text-foreground/90">{item.body}</p>
+          </div>
+        ))}
       </div>
     </div>
   </div>

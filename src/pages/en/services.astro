@@ -2,38 +2,54 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { CONTACT_CTA } from '../../config/site';
 import { breadcrumbJsonLd } from '../../lib/seo';
+import Icon from '../../components/Icon.astro';
 
 const services = [
   {
-    title: 'Technical delivery',
+    title: 'Web platform engineering',
     items: [
-      'Astro/Shopify/WordPress builds with CWV and accessibility baked in.',
-      'Shopify Liquid themes without unnecessary apps and with clean tracking.',
-      'Custom WordPress with hardening, coherent caching, and content guidelines.'
+      'Architecture and hardening for WordPress and AEM.',
+      'React (Vite) with Node/Spring Boot backends.',
+      'Performance, security, and maintainability control.',
+      'Technical documentation and team handover.'
     ]
   },
   {
-    title: 'Technical SEO & structured data',
+    title: 'Back end, data, and automation',
     items: [
-      'Sitemap architecture + ES/EN hreflang, canonicals, and correct pagination.',
-      'JSON-LD for Person, WebSite, ProfilePage, and BreadcrumbList per template.',
-      'Indexation audits and thin content cleanup.'
+      'APIs with Spring Boot and Node.js.',
+      'Integrations and ETL pipelines.',
+      'Automation with n8n.',
+      'Multilingual chatbots and widgets via API.',
+      'Firebase (Auth, Firestore, Storage, rules).'
     ]
   },
   {
-    title: 'Accessibility and robust UX',
+    title: 'DevOps and operations',
     items: [
-      'Accessible patterns for navigation, filters, carts, and checkouts.',
-      'Visible focus states; roles/aria only when needed.',
-      'WCAG AA/AAA checks on critical flows with guidance for teams.'
+      'Environment dockerization.',
+      'GitHub Actions CI/CD.',
+      'Reproducible builds.',
+      'Deployment flows in cPanel and hybrid cloud.'
     ]
   },
   {
-    title: 'Measurement and automation',
+    title: 'Technical SEO and DX',
     items: [
-      'GA4 + Pixel setups without duplicates or render-blocking scripts.',
-      'Automations with GHL/WhatsApp Business API respecting opt-in and logging.',
-      'Light dashboards and alerts for CWV and conversions.'
+      'Core Web Vitals and real performance.',
+      'JSON-LD and structured data.',
+      'Information architecture.',
+      'Technical reporting (GSC / GA).',
+      'Component governance (AEM).'
+    ]
+  },
+  {
+    title: 'Accessibility',
+    items: [
+      'WCAG audits.',
+      'Semantic, accessible UX.',
+      'Keyboard, visible focus, contrast.',
+      'Technical guides for teams.'
     ]
   }
 ];
@@ -48,27 +64,32 @@ const structuredData = [
 
 <BaseLayout
   lang="en"
-  title="Services | Performance, Technical SEO, Accessibility"
-  description="Implementation and consulting across Shopify, WordPress, and Astro with CWV, accessibility, and conversion measurement."
+  title="Systems engineering & automation services | Maycoll Jaramillo"
+  description="Systems engineering, automation, technical SEO, accessibility, and enterprise platforms."
   canonicalPath="/en/services"
   alternates={[{ lang: 'es', path: '/es/services' }]}
   structuredData={structuredData}
 >
-  <section class="mx-auto max-w-5xl px-4 py-12 md:px-6">
-    <p class="text-xs uppercase tracking-[0.2em] text-accent">Services</p>
-    <h1 class="mt-2 text-3xl font-semibold text-foreground">Senior delivery and consulting</h1>
-    <p class="mt-4 text-muted">
-      I deliver business-ready sites: fast, accessible, and measurable. I work with teams that need clear outcomes and documentation to operate without friction.
+  <section class="section-shell mx-auto max-w-5xl px-4 py-12 md:px-6">
+    <p class="section-title">Services</p>
+    <h1 class="mt-3 text-4xl font-semibold text-foreground">Systems engineering and technical consulting services</h1>
+    <p class="mt-4 text-lg text-muted">
+      Design, implementation, and audits for web platforms, backends, and automations in enterprise environments, with verifiable technical criteria.
     </p>
   </section>
 
-  <section class="mx-auto max-w-5xl px-4 pb-12 md:px-6">
-    <h2 class="text-2xl font-semibold text-foreground">Offerings</h2>
+  <section class="section-shell mx-auto max-w-5xl px-4 py-12 md:px-6">
+    <div class="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+      <div>
+        <p class="section-title">Areas</p>
+        <h2 class="mt-2 text-2xl font-semibold text-foreground">Services focused on technical delivery</h2>
+      </div>
+    </div>
     <div class="mt-6 grid gap-4 md:grid-cols-2">
       {services.map((service) => (
         <article class="card p-5">
           <h3 class="text-lg font-semibold text-foreground">{service.title}</h3>
-          <ul class="mt-3 space-y-2 text-muted">
+          <ul class="mt-3 space-y-2 text-foreground/90">
             {service.items.map((item) => (
               <li class="flex items-start gap-2">
                 <span class="mt-1 inline-block h-2 w-2 rounded-full bg-accent"></span>
@@ -81,49 +102,54 @@ const structuredData = [
     </div>
   </section>
 
-  <section class="mx-auto max-w-5xl px-4 pb-12 md:px-6">
-    <h2 class="text-2xl font-semibold text-foreground">Working principles</h2>
+  <section class="section-shell mx-auto max-w-5xl px-4 py-12 md:px-6">
+    <div class="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+      <p class="section-title">Methodology</p>
+      <span class="rounded-full border border-border/70 bg-panel px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-accent">Verifiable delivery</span>
+    </div>
+    <h2 class="mt-3 text-2xl font-semibold text-foreground">Technical delivery principles</h2>
     <div class="mt-4 grid gap-4 md:grid-cols-2">
       <div class="card p-5">
-        <p class="font-semibold text-foreground">No fluff</p>
-        <p class="mt-2 text-muted">Engineering backed by metrics and clear acceptance criteria.</p>
+        <p class="font-semibold text-foreground">Accessibility embedded</p>
+        <p class="mt-2 text-muted">Semantics, keyboard, focus, and contrast from design through QA.</p>
       </div>
       <div class="card p-5">
-        <p class="font-semibold text-foreground">Accessibility first</p>
-        <p class="mt-2 text-muted">Accessible patterns for critical components with visible focus and keyboard support.</p>
+        <p class="font-semibold text-foreground">Performance as a requirement</p>
+        <p class="mt-2 text-muted">Core Web Vitals control across templates and third-party scripts.</p>
       </div>
       <div class="card p-5">
-        <p class="font-semibold text-foreground">Architecture-led SEO</p>
-        <p class="mt-2 text-muted">Hreflang, canonicals, schema, and sitemaps integrated at the core.</p>
+        <p class="font-semibold text-foreground">Automation and security</p>
+        <p class="mt-2 text-muted">Validation, least privilege, and orchestrated flows with logs.</p>
       </div>
       <div class="card p-5">
-        <p class="font-semibold text-foreground">Performance by default</p>
-        <p class="mt-2 text-muted">CWV measured per delivery and no unnecessary dependencies.</p>
+        <p class="font-semibold text-foreground">Auditable technical SEO</p>
+        <p class="mt-2 text-muted">Hreflang, canonicals, schema, and consistent reporting.</p>
       </div>
     </div>
   </section>
 
-  <section class="mx-auto max-w-5xl px-4 pb-16 md:px-6">
+  <section class="section-shell mx-auto max-w-5xl px-4 pb-16 md:px-6">
     <div class="card flex flex-col gap-4 p-6 md:flex-row md:items-center md:justify-between">
       <div>
-        <p class="text-xs uppercase tracking-[0.2em] text-accent">Next</p>
-        <h2 class="text-xl font-semibold text-foreground">Share your context</h2>
+        <p class="section-title">Next step</p>
+        <h2 class="text-xl font-semibold text-foreground">Share your technical context</h2>
         <p class="mt-2 max-w-2xl text-muted">
-          In a call we review your stack, current metrics, and define an action plan with clear priorities.
+          We review your stack and current metrics, then define an action plan with clear priorities and documented scope.
         </p>
       </div>
       <div class="flex flex-wrap gap-3">
         <a
-          class="inline-flex items-center justify-center rounded-full bg-accent px-4 py-2 text-sm font-semibold text-surface shadow-soft transition hover:bg-accent-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-surface"
+          class="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-accent to-accent-2 px-4 py-2 text-sm font-semibold text-surface shadow-soft transition hover:-translate-y-[1px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-surface"
           href={CONTACT_CTA.primary.href}
         >
-          Book a call
+          <Icon name="whatsapp" label="WhatsApp" />
+          WhatsApp
         </a>
         <a
-          class="inline-flex items-center justify-center rounded-full border border-border/70 bg-panel px-4 py-2 text-sm font-semibold text-foreground transition hover:border-accent hover:text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+          class="inline-flex items-center justify-center rounded-full border border-border/70 bg-panel px-4 py-2 text-sm font-semibold text-foreground transition hover:-translate-y-[1px] hover:border-accent hover:text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
           href="/work"
         >
-          View work
+          View cases
         </a>
       </div>
     </div>

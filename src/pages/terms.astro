@@ -1,6 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { breadcrumbJsonLd } from '../lib/seo';
+import { PERSON } from '../config/person';
+import { SITE } from '../config/site';
 
 const structuredData = [
   breadcrumbJsonLd([{ name: 'Términos', path: '/terms' }])
@@ -9,7 +11,7 @@ const structuredData = [
 
 <BaseLayout
   lang="es"
-  title="Términos y condiciones | Maycoll Jaramillo"
+  title={`Términos y condiciones | ${PERSON.shortName}`}
   description="Términos simples sobre uso del contenido y contacto."
   canonicalPath="/terms"
   structuredData={structuredData}
@@ -20,8 +22,12 @@ const structuredData = [
     <div class="mt-4 space-y-3 text-muted">
       <p>El contenido de este sitio es informativo y refleja experiencia personal. No se ofrecen garantías expresas o implícitas.</p>
       <p>Las referencias a clientes pueden ser confidenciales; no se comparten datos sin autorización previa.</p>
-      <p>El código y assets son propiedad de Maycoll de Jesús Jaramillo Vanegas, salvo que se indique lo contrario.</p>
-      <p>Para cualquier aclaración legal o de uso de contenido, envía un correo a <a class="text-foreground hover:text-accent" href="mailto:maycoll.jaramil@gmail.com">maycoll.jaramil@gmail.com</a>.</p>
+      <p>El código y assets son propiedad de {PERSON.fullName}, salvo que se indique lo contrario.</p>
+      <p>
+        Para cualquier aclaración legal o de uso de contenido, envía un correo a
+        {' '}
+        <a class="text-foreground hover:text-accent" href={`mailto:${SITE.email}`}>{SITE.email}</a>.
+      </p>
     </div>
   </section>
 </BaseLayout>

@@ -1,0 +1,77 @@
+---
+import type { SimpleIcon } from 'simple-icons';
+import {
+  siReact,
+  siAstro,
+  siTailwindcss,
+  siNodedotjs,
+  siJavascript,
+  siPhp,
+  siPostgresql,
+  siMysql,
+  siFirebase,
+  siAdobe,
+  siShopify,
+  siWordpress,
+  siGoogle,
+  siGoogleanalytics,
+  siGooglechrome,
+  siFacebook,
+  siWhatsapp,
+  siOpenaccess,
+  siAccenture,
+  siHtml5,
+  siExpress,
+  siMongodb,
+  siPrisma,
+  siWebflow
+} from 'simple-icons';
+
+const ICONS = {
+  react: siReact,
+  astro: siAstro,
+  tailwind: siTailwindcss,
+  node: siNodedotjs,
+  javascript: siJavascript,
+  php: siPhp,
+  postgres: siPostgresql,
+  mysql: siMysql,
+  firebase: siFirebase,
+  aem: siAccenture,
+  shopify: siShopify,
+  wordpress: siWordpress,
+  seo: siGoogle,
+  accessibility: siOpenaccess,
+  cwv: siGooglechrome,
+  ga: siGoogleanalytics,
+  meta: siFacebook,
+  whatsapp: siWhatsapp,
+  liquid: siShopify,
+  html: siHtml5,
+  express: siExpress,
+  mongodb: siMongodb,
+  prisma: siPrisma,
+  webflow: siWebflow
+} satisfies Record<string, SimpleIcon>;
+
+type IconName = keyof typeof ICONS;
+
+interface Props {
+  name: IconName;
+  label?: string;
+}
+
+const { name, label } = Astro.props;
+const icon = ICONS[name];
+const title = label ?? icon.title;
+---
+
+<svg
+  aria-label={title}
+  role="img"
+  viewBox="0 0 24 24"
+  class="h-4 w-4 text-current"
+  fill="currentColor"
+>
+  <path d={icon.path} />
+</svg>

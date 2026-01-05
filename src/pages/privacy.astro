@@ -1,6 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { breadcrumbJsonLd } from '../lib/seo';
+import { PERSON } from '../config/person';
+import { SITE } from '../config/site';
 
 const structuredData = [
   breadcrumbJsonLd([{ name: 'Privacidad', path: '/privacy' }])
@@ -9,8 +11,8 @@ const structuredData = [
 
 <BaseLayout
   lang="es"
-  title="Aviso de privacidad | Maycoll Jaramillo"
-  description="Aviso de privacidad simple: solo se recopilan los datos que envíes voluntariamente por email."
+  title={`Aviso de privacidad | ${PERSON.shortName}`}
+  description="Aviso de privacidad simple: solo se recopilan los datos que envías voluntariamente por email."
   canonicalPath="/privacy"
   structuredData={structuredData}
 >
@@ -19,9 +21,9 @@ const structuredData = [
     <h1 class="mt-2 text-3xl font-semibold text-foreground">Aviso de privacidad</h1>
     <div class="mt-4 space-y-3 text-muted">
       <p>No uso trackers adicionales ni cookies fuera de la analítica básica configurada según proyecto.</p>
-      <p>Solo recopilo los datos que envías voluntariamente por email o durante una llamada. No comparto información con terceros.</p>
+      <p>Solo recopilo los datos que envíes voluntariamente por email o durante una llamada. No comparto información con terceros.</p>
       <p>Si necesitas que elimine datos o correos previos, escríbeme y lo hago sin preguntas.</p>
-      <p>Contacto: <a class="text-foreground hover:text-accent" href="mailto:maycoll.jaramil@gmail.com">maycoll.jaramil@gmail.com</a></p>
+      <p>Contacto: <a class="text-foreground hover:text-accent" href={`mailto:${SITE.email}`}>{SITE.email}</a></p>
     </div>
   </section>
 </BaseLayout>

@@ -11,8 +11,8 @@ export const NAV_LINKS: Record<'es' | 'en', NavLink[]> = {
   en: [
     { href: '/en', label: 'Home' },
     { href: '/en/services', label: 'Services' },
-    { href: '/work', label: 'Work' },
-    { href: '/blog', label: 'Blog' },
+    { href: '/en/work', label: 'Work' },
+    { href: '/en/blog', label: 'Blog' },
     { href: '/en/contact', label: 'Contact' }
   ]
 };

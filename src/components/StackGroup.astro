@@ -1,7 +1,11 @@
 ---
+import Icon from './Icon.astro';
+
+type IconName = Parameters<typeof Icon>['0']['name'];
+
 interface StackItem {
   title: string;
-  capabilities: string[];
+  capabilities: { label: string; icon: IconName }[];
   proofs: string[];
 }
 
@@ -10,45 +14,65 @@ interface Props {
   description?: string;
   items: StackItem[];
   tagLabel?: string;
+  capabilitiesLabel?: string;
+  proofLabel?: string;
 }
 
-const { heading, description, items, tagLabel = 'Entrega verificable' } = Astro.props;
+const {
+  heading,
+  description,
+  items,
+  tagLabel = 'Entrega verificable',
+  capabilitiesLabel = 'Toolkit',
+  proofLabel = 'En produccion'
+} = Astro.props;
 ---
 
-<section class="mx-auto max-w-6xl px-4 py-12 md:px-6">
-  <div class="flex flex-col gap-3 md:flex-row md:items-baseline md:justify-between">
-    <div>
-      <p class="text-xs uppercase tracking-[0.2em] text-accent">{heading}</p>
-      {description && <p class="mt-2 max-w-2xl text-muted">{description}</p>}
+<section class="mx-auto max-w-6xl px-4 py-14 md:px-6 lg:py-16">
+  <div class="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+    <div class="space-y-2">
+      <p class="section-title">{heading}</p>
+      {description && <p class="max-w-3xl text-muted leading-relaxed">{description}</p>}
+    </div>
+    <div class="hidden rounded-full border border-border/70 bg-panel px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-accent md:inline-flex">
+      {tagLabel}
     </div>
   </div>
-  <div class="mt-6 grid gap-4 md:grid-cols-2">
-    {items.map((group) => (
-      <article class="card h-full p-5">
-        <header class="mb-4 flex items-center justify-between gap-3">
-          <h3 class="text-lg font-semibold text-foreground">{group.title}</h3>
-          <span class="rounded-full bg-panel px-3 py-1 text-xs text-muted">{tagLabel}</span>
-        </header>
-        <div class="space-y-3 text-sm text-foreground/85">
-          <p class="font-medium text-foreground">Capacidades:</p>
-          <ul class="grid gap-2 sm:grid-cols-2">
-            {group.capabilities.map((item) => (
-              <li class="rounded-lg border border-border/70 bg-panel/70 px-3 py-2 text-foreground/90">
-                {item}
-              </li>
-            ))}
-          </ul>
-          <p class="mt-4 font-medium text-foreground">Pruebas:</p>
-          <ul class="space-y-2">
-            {group.proofs.map((proof) => (
-              <li class="flex items-start gap-2 text-muted">
-                <span class="mt-1 inline-block h-2 w-2 rounded-full bg-accent"></span>
-                <span>{proof}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </article>
-    ))}
+  <div class="mt-8 grid gap-6 md:grid-cols-2">
+    {items.map((group, idx) => {
+      const delay = `${idx * 80}ms`;
+      return (
+        <article class="card lift-in p-5" style={`animation-delay:${delay};`}>
+          <div class="space-y-2">
+            <p class="text-[11px] uppercase tracking-[0.18em] text-accent">{tagLabel}</p>
+            <h3 class="text-lg font-semibold leading-snug text-foreground">{group.title}</h3>
+          </div>
+          <div class="mt-4 grid gap-4">
+            <div class="space-y-2">
+              <p class="text-[11px] uppercase tracking-[0.14em] text-muted">{capabilitiesLabel}</p>
+              <ul class="space-y-1.5 text-sm text-foreground/90">
+                {group.capabilities.map((item) => (
+                  <li class="flex items-center gap-2">
+                    <Icon name={item.icon} label={item.label} />
+                    <span>{item.label}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div class="space-y-2">
+              <p class="text-[11px] uppercase tracking-[0.14em] text-muted">{proofLabel}</p>
+              <ul class="space-y-2 text-sm leading-relaxed text-muted">
+                {group.proofs.map((proof) => (
+                  <li class="flex items-start gap-2">
+                    <span class="mt-1 inline-block h-1.5 w-1.5 rounded-full bg-accent"></span>
+                    <span>{proof}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </article>
+      );
+    })}
   </div>
 </section>

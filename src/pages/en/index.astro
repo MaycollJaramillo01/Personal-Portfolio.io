@@ -2,54 +2,112 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import CaseStudyCard from '../../components/CaseStudyCard.astro';
-import Hero from '../../components/Hero.astro';
 import PostCard from '../../components/PostCard.astro';
 import StackGroup from '../../components/StackGroup.astro';
 import { CONTACT_CTA, SITE } from '../../config/site';
+import { PERSON } from '../../config/person';
 import { breadcrumbJsonLd } from '../../lib/seo';
+import Icon from '../../components/Icon.astro';
 
 const caseStudies = (await getCollection('case-studies')).sort(
   (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
 );
 const posts = (await getCollection('blog'))
-  .filter((post) => post.data.lang === 'es')
+  .filter((post) => post.data.lang === 'en')
   .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
 
 const stackItems = [
   {
-    title: 'Performance & Frontend',
-    capabilities: ['React, Astro, Tailwind', 'CWV optimization (LCP/CLS/INP)', 'Islands only when they add value'],
+    title: 'Performance & frontend',
+    capabilities: [
+      { label: 'Semantic HTML', icon: 'html' },
+      { label: 'CSS (Tailwind)', icon: 'tailwind' },
+      { label: 'Modern JavaScript', icon: 'javascript' },
+      { label: 'React 18', icon: 'react' },
+      { label: 'Astro (SSG)', icon: 'astro' },
+      { label: 'Core Web Vitals', icon: 'cwv' },
+      { label: 'Font / image optimization', icon: 'cwv' }
+    ],
     proofs: [
-      'Critical hero with fixed sizes and measured preload.',
-      'CLS=0 approach for sliders and mobile menus.',
-      'Lightweight RUM to catch regressions on mobile.'
+      'Semantic layout and focus order validated.',
+      'Preload and critical CSS sized for visual stability.',
+      'Asset budgets with compression and sizing.'
     ]
   },
   {
-    title: 'Backend & Data',
-    capabilities: ['Node.js, PHP', 'PostgreSQL/MySQL', 'Firebase'],
+    title: 'Backend & data',
+    capabilities: [
+      { label: 'PHP / WordPress', icon: 'php' },
+      { label: 'Node.js / Express', icon: 'node' },
+      { label: 'React (Vite)', icon: 'react' },
+      { label: 'PostgreSQL / MySQL', icon: 'postgres' },
+      { label: 'MongoDB', icon: 'mongodb' },
+      { label: 'Firebase', icon: 'firebase' },
+      { label: 'Prisma ORM', icon: 'prisma' }
+    ],
     proofs: [
-      'Secure, cached APIs with clear logs.',
+      'APIs with logging and controlled cache.',
       'Data models aligned to conversion reporting.',
-      'Reproducible deploys in Vercel/Netlify.'
+      'Reproducible builds with CI/CD.'
     ]
   },
   {
-    title: 'Enterprise & CMS',
-    capabilities: ['AEM', 'Shopify Liquid', 'Custom WordPress'],
+    title: 'CMS & enterprise',
+    capabilities: [
+      { label: 'WordPress (custom/hardening)', icon: 'wordpress' },
+      { label: 'Shopify (Liquid/technical CRO)', icon: 'shopify' },
+      { label: 'AEM', icon: 'aem' },
+      { label: 'Webflow', icon: 'webflow' },
+      { label: 'Liquid schema', icon: 'liquid' }
+    ],
     proofs: [
-      'Lean themes without plugin/app bloat.',
-      'Accessible, reusable component patterns.',
-      'Migrations with redirects and canonical consistency.'
+      'Lightweight themes without unnecessary plugins/apps.',
+      'Accessible components ready for content teams.',
+      'Migrations with consistent redirects and canonicals.'
     ]
   },
   {
-    title: 'Marketing Tech',
-    capabilities: ['GHL', 'WhatsApp Business API', 'GA4/Meta Pixel'],
+    title: 'Technical SEO',
+    capabilities: [
+      { label: 'Sitemaps + canonicals', icon: 'seo' },
+      { label: 'Robots and indexation', icon: 'seo' },
+      { label: 'JSON-LD schema', icon: 'seo' },
+      { label: 'Hreflang ES/EN', icon: 'seo' }
+    ],
     proofs: [
-      'Schema implementation + indexing optimization.',
-      'Conversion events without duplicate scripts.',
-      'Automations with opt-in and observability.'
+      'Sitemap architecture and canonicals per template.',
+      'Structured data (Person, WebSite, ProfilePage, BreadcrumbList).',
+      'Indexation control and GSC coverage.'
+    ]
+  },
+  {
+    title: 'Accessibility',
+    capabilities: [
+      { label: 'WCAG 2.x', icon: 'accessibility' },
+      { label: 'Keyboard navigation', icon: 'accessibility' },
+      { label: 'Visible focus', icon: 'accessibility' },
+      { label: 'Accessible forms', icon: 'accessibility' },
+      { label: 'AA contrast', icon: 'accessibility' }
+    ],
+    proofs: [
+      'Accessible patterns for menus, modals, filters, checkout.',
+      'Roles/aria only when it adds value and is tested.',
+      'Manual and automated validation across critical flows.'
+    ]
+  },
+  {
+    title: 'Automation & tracking',
+    capabilities: [
+      { label: 'n8n / API integrations', icon: 'whatsapp' },
+      { label: 'GA4', icon: 'ga' },
+      { label: 'Meta Pixel', icon: 'meta' },
+      { label: 'WhatsApp Business API', icon: 'whatsapp' },
+      { label: 'Deduplicated events', icon: 'ga' }
+    ],
+    proofs: [
+      'Events without duplication (GA4/Pixel/server).',
+      'Automations with opt-in and traceability.',
+      'Light dashboards and alerts for CWV and conversion.'
     ]
   }
 ];
@@ -63,130 +121,249 @@ const structuredData = [
 
 <BaseLayout
   lang="en"
-  title="Senior Software Engineer · Technical SEO · Accessibility"
-  description="Senior software engineer focused on Shopify, WordPress, technical SEO, accessibility, and conversion-first architectures."
+  title="Senior Systems Engineer · Automation, SEO & DX | Maycoll Jaramillo"
+  description="Senior Systems Engineer specialized in automation, technical SEO, accessibility, and enterprise platforms (AEM, WordPress, React, Firebase)."
   canonicalPath="/en"
   alternates={[{ lang: 'es', path: '/es' }]}
   structuredData={structuredData}
 >
-  <Hero
-    eyebrow="Shopify Developer & Digital Marketing Specialist"
-    title="Senior Software Engineer · Technical SEO · Accessibility"
-    subtitle="I build fast, accessible, conversion-ready web infrastructure for LATAM, Spain, and the US."
-    description="I combine Shopify/WordPress/React development, technical SEO, and automation to ship measurable sites without heavy dependencies or risky animations."
-    primary={{ label: 'Book a call', href: CONTACT_CTA.primary.href }}
-    secondary={{ label: 'See case studies', href: '/work' }}
-    bullets={[
-      'Clean architecture with CWV baked in (Astro/Shopify/WordPress).',
-      'WCAG/ADA-first for critical journeys like checkout and forms.',
-      'GA4/Pixel events without blocking render or duplicating data.'
-    ]}
-    callouts={[
-      { title: 'No fluff', body: 'Architecture, accessibility, and SEO driven by metrics.' },
-      { title: 'Safe delivery', body: 'No heavy dependencies, no animations that hurt LCP.' },
-      { title: 'Accessible by default', body: 'Visible focus, keyboard navigation, clean semantics.' }
-    ]}
-  />
+  <section class="mx-auto max-w-6xl px-4 pt-12 md:px-6 lg:pt-16">
+    <div class="relative overflow-hidden rounded-[32px] border border-border/70 bg-panel/90 p-6 shadow-soft lg:p-8">
+      <div class="relative grid gap-10 lg:grid-cols-[1.15fr,0.95fr] lg:items-center">
+        <div class="space-y-6">
+          <p class="section-title">Automation · Technical SEO · Accessibility</p>
+          <h1 class="text-balance text-4xl font-semibold leading-tight text-foreground sm:text-5xl">
+            Systems engineering applied to web platforms and automation
+          </h1>
+          <p class="max-w-2xl text-lg leading-relaxed text-muted">
+            Senior Systems Engineer. I design, audit, and harden web platforms and backends in enterprise environments with a focus on automation, technical SEO, accessibility, and measurable performance.
+          </p>
+          <p class="max-w-2xl text-muted">
+            Architect and developer for production platforms across LATAM and Europe. I combine web infrastructure, data control, and technical documentation for frictionless handoff.
+          </p>
+          <div class="flex flex-wrap items-center gap-3">
+            <a
+              class="inline-flex items-center justify-center gap-2 rounded-full bg-accent px-5 py-3 text-sm font-semibold text-surface shadow-soft transition hover:-translate-y-[1px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-surface"
+              href={CONTACT_CTA.primary.href}
+            >
+              <Icon name="whatsapp" label="WhatsApp" />
+              WhatsApp
+            </a>
+            <a
+              class="inline-flex items-center justify-center rounded-full border border-border/70 bg-panel px-5 py-3 text-sm font-semibold text-foreground transition hover:-translate-y-[1px] hover:border-accent hover:text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              href="/work"
+            >
+              View case studies
+            </a>
+          </div>
+          <div class="grid gap-3 sm:grid-cols-2">
+            <div class="rounded-2xl border border-border/70 bg-panel p-4">
+              <p class="text-[11px] uppercase tracking-[0.16em] text-muted">Delivery criteria</p>
+              <p class="text-sm font-semibold text-foreground">Per-template checklist: CWV, accessibility, technical SEO, tracking.</p>
+              <p class="text-sm text-muted">Staging validation and documented QA.</p>
+            </div>
+            <div class="rounded-2xl border border-border/70 bg-panel p-4">
+              <p class="text-[11px] uppercase tracking-[0.16em] text-muted">Operations</p>
+              <p class="text-sm font-semibold text-foreground">Automation, logging, and deduplication.</p>
+              <p class="text-sm text-muted">Resilient backends and handover guides.</p>
+            </div>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <span class="badge">Automation / n8n</span>
+            <span class="badge">AEM / WordPress</span>
+            <span class="badge">Shopify / Liquid</span>
+            <span class="badge">Core Web Vitals</span>
+            <span class="badge">Accessibility WCAG</span>
+            <span class="badge">Technical SEO / hreflang</span>
+          </div>
+        </div>
 
-  <section class="mx-auto max-w-6xl px-4 py-12 md:px-6">
-    <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-      <div>
-        <p class="text-xs uppercase tracking-[0.2em] text-accent">Services / How I work</p>
-        <h2 class="mt-2 text-2xl font-semibold text-foreground">Engineering tied to outcomes</h2>
-        <p class="mt-2 max-w-3xl text-muted">
-          I work with teams that need speed, WCAG compliance, and real technical SEO. I design the stack, execute, and leave documentation so your team can operate without surprises.
-        </p>
-      </div>
-      <div class="flex flex-wrap gap-2">
-        <span class="rounded-full bg-panel px-3 py-2 text-xs text-foreground/85 border border-border/70">Performance as a requirement</span>
-        <span class="rounded-full bg-panel px-3 py-2 text-xs text-foreground/85 border border-border/70">Native accessibility</span>
-        <span class="rounded-full bg-panel px-3 py-2 text-xs text-foreground/85 border border-border/70">Architecture-first SEO</span>
-        <span class="rounded-full bg-panel px-3 py-2 text-xs text-foreground/85 border border-border/70">CRO with verifiable tracking</span>
+        <div class="space-y-4">
+          <div class="flex items-center gap-4 rounded-2xl border border-border/70 bg-panel p-4 shadow-soft">
+            <img
+              src="/images/person.png"
+              alt={`Portrait of ${PERSON.shortName}`}
+              class="h-16 w-16 rounded-full object-cover shadow-soft"
+              loading="lazy"
+            />
+            <div>
+              <p class="text-sm font-semibold text-foreground">{PERSON.shortName}</p>
+              <p class="text-xs uppercase tracking-[0.14em] text-muted">{PERSON.headline.en}</p>
+              <p class="text-xs text-muted">Managua, Nicaragua · remote LATAM / EU / US.</p>
+            </div>
+          </div>
+          <div class="card p-5 lg:p-6">
+            <p class="text-xs uppercase tracking-[0.18em] text-accent">Delivery checklist</p>
+            <ul class="mt-3 space-y-2.5 text-sm leading-relaxed text-foreground/90">
+              <li>Architecture and hardening per platform (WordPress/AEM/React/Node).</li>
+              <li>Structured data and indexation control: sitemaps, hreflang, canonicals.</li>
+              <li>WCAG accessibility with visible focus, keyboard, and semantics.</li>
+              <li>Automation with n8n and WhatsApp API; opt-in and event logs.</li>
+              <li>QA, documentation, and handoff for marketing/content teams.</li>
+            </ul>
+          </div>
+          <div class="card space-y-4 p-5 lg:p-6">
+            <p class="text-xs uppercase tracking-[0.18em] text-accent">Validation</p>
+            <ul class="space-y-2.5 text-sm leading-relaxed text-foreground/90">
+              <li class="flex items-start gap-2"><span aria-hidden="true" class="mt-1 block h-2 w-2 rounded-full bg-accent"></span><span>Focus order, landmarks, and keyboard support in menus, modals, and forms.</span></li>
+              <li class="flex items-start gap-2"><span aria-hidden="true" class="mt-1 block h-2 w-2 rounded-full bg-accent"></span><span>Canonicals, hreflang, and sitemaps consistent per template.</span></li>
+              <li class="flex items-start gap-2"><span aria-hidden="true" class="mt-1 block h-2 w-2 rounded-full bg-accent"></span><span>Font/image preload and critical CSS sized for stability.</span></li>
+              <li class="flex items-start gap-2"><span aria-hidden="true" class="mt-1 block h-2 w-2 rounded-full bg-accent"></span><span>GA4/Pixel events without duplication or render blocking.</span></li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="mt-6 grid gap-4 md:grid-cols-2">
-      <div class="card p-5">
-        <h3 class="text-lg font-semibold text-foreground">Clear action plans</h3>
-        <p class="mt-2 text-muted">No fluff: engineering backed by metrics. Every deliverable ships with a verification checklist (CWV, accessibility, SEO) and next steps.</p>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-4 py-12 md:px-6 lg:py-16">
+    <div class="section-shell">
+      <div class="space-y-3">
+        <p class="section-title">Areas of focus</p>
+        <h2 class="text-3xl font-semibold text-foreground">Platforms, automation, and DX with technical criteria</h2>
+        <p class="text-lg leading-relaxed text-muted">
+          I work with teams that need operational stability, data control, and validated delivery. Remote-first from Managua (UTC-6) with availability for LATAM and Europe.
+        </p>
       </div>
-      <div class="card p-5">
-        <h3 class="text-lg font-semibold text-foreground">Documented operations</h3>
-        <p class="mt-2 text-muted">Guides for content/marketing teams: how to publish without breaking CWV or accessibility, and how to measure conversions without duplicates.</p>
+      <div class="mt-6 grid gap-4 md:grid-cols-2">
+        <article class="card p-5">
+          <h3 class="text-lg font-semibold text-foreground">Full-stack engineering and back end</h3>
+          <ul class="mt-3 space-y-2 text-foreground/90">
+            <li>PHP/WordPress, React (Vite), and Node.js.</li>
+            <li>Java (Spring Boot) for APIs and business platforms.</li>
+            <li>Databases: MySQL/Prisma, SQL Server, MongoDB.</li>
+          </ul>
+        </article>
+        <article class="card p-5">
+          <h3 class="text-lg font-semibold text-foreground">Automation and DevOps</h3>
+          <ul class="mt-3 space-y-2 text-foreground/90">
+            <li>n8n for orchestration and automation.</li>
+            <li>API integrations and multilingual chatbots.</li>
+            <li>Docker and GitHub Actions for CI/CD and reproducible builds.</li>
+          </ul>
+        </article>
+        <article class="card p-5">
+          <h3 class="text-lg font-semibold text-foreground">Technical SEO and search architecture</h3>
+          <ul class="mt-3 space-y-2 text-foreground/90">
+            <li>Core Web Vitals and real-world performance.</li>
+            <li>JSON-LD and structured data.</li>
+            <li>Information architecture and crawlability with GSC/GA reporting.</li>
+          </ul>
+        </article>
+        <article class="card p-5">
+          <h3 class="text-lg font-semibold text-foreground">Digital Experience and accessibility</h3>
+          <ul class="mt-3 space-y-2 text-foreground/90">
+            <li>AEM component governance and content operations.</li>
+            <li>WCAG accessibility: semantics, keyboard, focus, contrast.</li>
+            <li>Technical audits and remediation guides.</li>
+          </ul>
+        </article>
       </div>
     </div>
   </section>
 
   <StackGroup
     heading="Contextualized stack"
-    description="Tools are chosen with intent and evidence, never as a logo collection."
+    description="Every tool is used with intent and proof: CWV, accessibility, indexation, and measurement ready for business."
     items={stackItems}
-    tagLabel="Verifiable delivery"
+    tagLabel="Verified delivery"
+    proofLabel="In production"
   />
 
-  <section class="mx-auto max-w-6xl px-4 py-12 md:px-6">
-    <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-      <div>
-        <p class="text-xs uppercase tracking-[0.2em] text-accent">Featured work</p>
-        <h2 class="text-2xl font-semibold text-foreground">STAR: situation, task, action, result</h2>
-        <p class="mt-2 max-w-3xl text-muted">Only verifiable outcomes. When metrics are confidential, I share them on request with the right context.</p>
+  <section class="mx-auto max-w-6xl px-4 py-12 md:px-6 lg:py-16">
+    <div class="section-shell">
+      <div class="grid gap-6 lg:grid-cols-[1.4fr,0.9fr] lg:items-start">
+        <div class="space-y-3">
+          <p class="section-title">Featured work</p>
+          <h2 class="text-3xl font-semibold text-foreground">STAR: situation, task, action, result</h2>
+          <p class="max-w-3xl text-muted leading-relaxed">Verifiable outcomes. Metrics are shared publicly or on request with proper context.</p>
+          <div class="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+            <div class="rounded-2xl border border-border/60 bg-panel p-3 text-sm text-foreground/90">
+              <p class="text-[11px] uppercase tracking-[0.16em] text-accent">S - Situation</p>
+              <p class="mt-1 text-muted">Real constraints and context.</p>
+            </div>
+            <div class="rounded-2xl border border-border/60 bg-panel p-3 text-sm text-foreground/90">
+              <p class="text-[11px] uppercase tracking-[0.16em] text-accent">T - Task</p>
+              <p class="mt-1 text-muted">Measurable goals and templates.</p>
+            </div>
+            <div class="rounded-2xl border border-border/60 bg-panel p-3 text-sm text-foreground/90">
+              <p class="text-[11px] uppercase tracking-[0.16em] text-accent">A - Action</p>
+              <p class="mt-1 text-muted">Technical changes, QA, documentation.</p>
+            </div>
+            <div class="rounded-2xl border border-border/60 bg-panel p-3 text-sm text-foreground/90">
+              <p class="text-[11px] uppercase tracking-[0.16em] text-accent">R - Result</p>
+              <p class="mt-1 text-muted">KPIs shared or on request.</p>
+            </div>
+          </div>
+        </div>
+        <div class="flex flex-col gap-3 lg:items-end">
+          <span class="inline-flex items-center gap-2 self-start rounded-full border border-border/70 bg-panel px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-accent lg:self-end">
+            Verifiable outcomes
+          </span>
+          <a
+            class="inline-flex items-center gap-2 rounded-full border border-border/70 bg-panel px-4 py-2 text-sm font-semibold text-foreground transition hover:-translate-y-[1px] hover:border-accent hover:text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+            href="/work"
+          >
+            View all
+          </a>
+        </div>
       </div>
-      <a
-        class="inline-flex items-center gap-2 rounded-full border border-border/70 bg-panel px-4 py-2 text-sm font-semibold text-foreground transition hover:border-accent hover:text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
-        href="/work"
-      >
-        View all
-      </a>
-    </div>
-    <div class="mt-6 grid gap-4 md:grid-cols-2">
-      {caseStudies.slice(0, 4).map((study) => (
-        <CaseStudyCard study={study} lang="en" />
-      ))}
+      <div class="mt-8 grid gap-5 md:grid-cols-2">
+        {caseStudies.slice(0, 4).map((study) => (
+          <CaseStudyCard study={study} lang="en" />
+        ))}
+      </div>
     </div>
   </section>
 
-  <section class="mx-auto max-w-6xl px-4 py-12 md:px-6">
-    <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-      <div>
-        <p class="text-xs uppercase tracking-[0.2em] text-accent">Technical blog</p>
-        <h2 class="text-2xl font-semibold text-foreground">SEO, accessibility, measurement</h2>
-        <p class="mt-2 max-w-3xl text-muted">No filler. Repeatable processes for product and marketing teams.</p>
+  <section class="mx-auto max-w-6xl px-4 py-12 md:px-6 lg:py-16">
+    <div class="section-shell">
+      <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+        <div class="space-y-2">
+          <p class="section-title">Technical blog</p>
+          <h2 class="text-2xl font-semibold text-foreground">Technical SEO, accessibility, measurement</h2>
+          <p class="max-w-3xl text-muted leading-relaxed">Practical guides and validated patterns for product and marketing teams.</p>
+        </div>
+        <a
+          class="inline-flex items-center gap-2 rounded-full border border-border/70 bg-panel px-4 py-2 text-sm font-semibold text-foreground transition hover:-translate-y-[1px] hover:border-accent hover:text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+          href="/blog"
+        >
+          View blog
+        </a>
       </div>
-      <a
-        class="inline-flex items-center gap-2 rounded-full border border-border/70 bg-panel px-4 py-2 text-sm font-semibold text-foreground transition hover:border-accent hover:text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
-        href="/blog"
-      >
-        View blog
-      </a>
-    </div>
-    <div class="mt-6 grid gap-4 md:grid-cols-3">
-      {posts.slice(0, 3).map((post) => (
-        <PostCard post={post} />
-      ))}
+      <div class="mt-6 grid gap-5 md:grid-cols-3">
+        {posts.slice(0, 3).map((post) => (
+          <PostCard post={post} />
+        ))}
+      </div>
     </div>
   </section>
 
   <section class="mx-auto max-w-6xl px-4 pb-16 md:px-6">
-    <div class="card flex flex-col gap-4 p-6 md:flex-row md:items-center md:justify-between">
-      <div>
-        <p class="text-xs uppercase tracking-[0.2em] text-accent">Next step</p>
-        <h2 class="text-xl font-semibold text-foreground">Let’s review your stack and metrics</h2>
-        <p class="mt-2 max-w-2xl text-muted">
-          In the first call I review your current state (performance, accessibility, tracking) and propose an actionable plan. No heavy scripts or inflated promises.
-        </p>
-      </div>
-      <div class="flex flex-wrap gap-3">
-        <a
-          class="inline-flex items-center justify-center rounded-full bg-accent px-4 py-2 text-sm font-semibold text-surface shadow-soft transition hover:bg-accent-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-surface"
-          href={CONTACT_CTA.primary.href}
-        >
-          Book a call
-        </a>
-        <a
-          class="inline-flex items-center justify-center rounded-full border border-border/70 bg-panel px-4 py-2 text-sm font-semibold text-foreground transition hover:border-accent hover:text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
-          href="/en/services"
-        >
-          View services
-        </a>
+    <div class="rounded-[28px] border border-border/70 bg-panel p-6 shadow-soft md:p-8">
+      <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+        <div class="space-y-2">
+          <p class="section-title">Next</p>
+          <h2 class="text-xl font-semibold text-foreground">Share your technical context</h2>
+          <p class="max-w-2xl text-muted leading-relaxed">
+            We review your stack, current metrics, and define an action plan with clear priorities and measurable deliverables.
+          </p>
+        </div>
+        <div class="flex flex-wrap gap-3">
+          <a
+            class="inline-flex items-center justify-center gap-2 rounded-full bg-accent px-4 py-2 text-sm font-semibold text-surface shadow-soft transition hover:-translate-y-[1px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-surface"
+            href={CONTACT_CTA.primary.href}
+          >
+            <Icon name="whatsapp" label="WhatsApp" />
+            WhatsApp
+          </a>
+          <a
+            class="inline-flex items-center justify-center rounded-full border border-border/70 bg-panel px-4 py-2 text-sm font-semibold text-foreground transition hover:-translate-y-[1px] hover:border-accent hover:text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+            href="/en/services"
+          >
+            View services
+          </a>
+        </div>
       </div>
     </div>
   </section>
