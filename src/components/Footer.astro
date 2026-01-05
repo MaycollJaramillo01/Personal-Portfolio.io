@@ -1,7 +1,8 @@
 ---
-import { SITE } from '../config/site';
+import { SITE, CONTACT_CTA } from '../config/site';
 import { PERSON } from '../config/person';
 import { NAV_LINKS } from '../data/navigation';
+import Icon from './Icon.astro';
 
 interface Props {
   lang?: 'es' | 'en';
@@ -11,48 +12,83 @@ const lang = Astro.props.lang ?? 'es';
 const links = NAV_LINKS[lang];
 const secondaryLinks = [
   { href: '/privacy', label: lang === 'es' ? 'Privacidad' : 'Privacy' },
-  { href: '/terms', label: lang === 'es' ? 'Terminos' : 'Terms' }
+  { href: '/terms', label: lang === 'es' ? 'Términos' : 'Terms' }
 ];
 ---
 
-<footer class="mt-12 border-t border-border/50 bg-panel py-12 text-sm text-muted">
-  <div class="mx-auto flex max-w-6xl flex-col gap-10 px-4 md:px-6">
-    <div class="grid gap-10 lg:grid-cols-[1.05fr,1fr]">
+<footer class="mt-16 border-t border-border/60 bg-panel px-4 py-12 text-sm text-muted">
+  <div class="page-width flex flex-col gap-10">
+    <div class="grid gap-10 lg:grid-cols-[1.1fr,0.9fr]">
       <div class="space-y-4">
-        <p class="inline-flex items-center gap-2 rounded-full border border-border/60 bg-panel px-3 py-1 text-[11px] uppercase tracking-[0.2em] text-accent">
-          {lang === 'es' ? 'Contacto directo' : 'Direct contact'}
+        <p class="inline-flex items-center gap-2 rounded-full border border-border/70 bg-panel px-3 py-1 text-[11px] uppercase tracking-[0.2em] text-accent">
+          {lang === 'es' ? 'Contacto' : 'Contact'}
         </p>
-        <p class="text-xl font-semibold text-foreground">{PERSON.fullName}</p>
+        <div class="space-y-1">
+          <p class="text-xl font-semibold text-foreground">{PERSON.fullName}</p>
+          <p class="text-foreground/80">
+            {lang === 'es'
+              ? 'Ingeniería de sistemas · SEO técnico · Accesibilidad · Automatización'
+              : 'Systems engineering · Technical SEO · Accessibility · Automation'}
+          </p>
+          <p class="text-foreground/70">{PERSON.location}</p>
+        </div>
+        <div class="flex flex-wrap gap-3">
+          <a
+            class="inline-flex items-center gap-2 rounded-full border border-border/70 bg-panel px-4 py-2 font-semibold text-foreground transition hover:-translate-y-[1px] hover:border-accent hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+            href={SITE.social.linkedin}
+            target="_blank"
+            rel="noopener"
+          >
+            LinkedIn
+          </a>
+          <a
+            class="inline-flex items-center gap-2 rounded-full border border-border/70 bg-panel px-4 py-2 font-semibold text-foreground transition hover:-translate-y-[1px] hover:border-accent hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+            href={SITE.social.github}
+            target="_blank"
+            rel="noopener"
+          >
+            GitHub
+          </a>
+          <a
+            class="inline-flex items-center gap-2 rounded-full bg-accent px-4 py-2 font-semibold text-surface shadow-soft transition hover:-translate-y-[1px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-surface"
+            href={CONTACT_CTA.primary.href}
+          >
+            <Icon name="whatsapp" label="WhatsApp" />
+            WhatsApp
+          </a>
+        </div>
         <ul class="space-y-2 text-foreground/85">
           <li>
-            <a class="inline-flex items-center gap-2 rounded-md px-2 py-1 transition hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent" href={`mailto:${SITE.email}`}>
+            <a
+              class="inline-flex items-center gap-2 rounded-md px-2 py-1 transition hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              href={`mailto:${SITE.email}`}
+            >
               {SITE.email}
             </a>
           </li>
           <li>
-            <a class="inline-flex items-center gap-2 rounded-md px-2 py-1 transition hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent" href={`tel:${SITE.phone.replace(/\s+/g, '')}`}>
+            <a
+              class="inline-flex items-center gap-2 rounded-md px-2 py-1 transition hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              href={`tel:${SITE.phone.replace(/\s+/g, '')}`}
+            >
               {SITE.phone}
             </a>
           </li>
-          <li class="text-foreground/70">{PERSON.location} • {lang === 'es' ? 'Remoto LATAM/USA/ES' : 'Remote LATAM/USA/ES'}</li>
         </ul>
-        <div class="flex flex-wrap gap-3">
-          <a class="inline-flex items-center gap-2 rounded-full border border-border/70 bg-panel px-4 py-2 text-foreground transition hover:-translate-y-[1px] hover:border-accent hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent" href={SITE.social.linkedin} target="_blank" rel="noopener">
-            LinkedIn
-          </a>
-          <a class="inline-flex items-center gap-2 rounded-full border border-border/70 bg-panel px-4 py-2 text-foreground transition hover:-translate-y-[1px] hover:border-accent hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent" href={SITE.social.github} target="_blank" rel="noopener">
-            GitHub
-          </a>
-        </div>
       </div>
 
-      <div class="grid grid-cols-2 gap-8 md:grid-cols-3">
+      <div class="grid gap-8 sm:grid-cols-3">
         <div>
           <p class="text-[11px] uppercase tracking-[0.18em] text-accent">Site</p>
           <ul class="mt-3 space-y-2">
             {links.map((item) => (
               <li>
-                <a class="text-foreground/80 transition hover:text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent" href={item.href}>{item.label}</a>
+                <a
+                  class="text-foreground/80 transition hover:text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                  href={item.href}
+                >
+                  {item.label}
+                </a>
               </li>
             ))}
           </ul>
@@ -62,7 +98,12 @@ const secondaryLinks = [
           <ul class="mt-3 space-y-2">
             {secondaryLinks.map((item) => (
               <li>
-                <a class="text-foreground/80 transition hover:text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent" href={item.href}>{item.label}</a>
+                <a
+                  class="text-foreground/80 transition hover:text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                  href={item.href}
+                >
+                  {item.label}
+                </a>
               </li>
             ))}
           </ul>
@@ -70,17 +111,25 @@ const secondaryLinks = [
         <div>
           <p class="text-[11px] uppercase tracking-[0.18em] text-accent">{lang === 'es' ? 'Disponibilidad' : 'Availability'}</p>
           <ul class="mt-3 space-y-2 text-foreground/80">
-            <li>{lang === 'es' ? 'Respondo en menos de 24h habiles' : 'Replies in under 24h (business)'}</li>
-            <li>{lang === 'es' ? 'Proyectos: Shopify, WordPress, Astro' : 'Projects: Shopify, WordPress, Astro'}</li>
-            <li>{lang === 'es' ? 'Consultoria tecnica SEO / Accesibilidad' : 'Technical SEO / Accessibility consulting'}</li>
+            <li>{lang === 'es' ? 'Respondo en menos de 24h hábiles' : 'Replies within one business day'}</li>
+            <li>{lang === 'es' ? 'Proyectos en LATAM / UE / EE. UU.' : 'Projects across LATAM / EU / US'}</li>
+            <li>
+              {lang === 'es'
+                ? 'Áreas: performance, SEO técnico, accesibilidad, automatización'
+                : 'Areas: performance, SEO, accessibility, automation'}
+            </li>
           </ul>
         </div>
       </div>
     </div>
 
-    <div class="flex flex-col gap-2 text-xs text-muted/80 md:flex-row md:items-center md:justify-between">
+    <div class="flex flex-col gap-2 text-xs text-muted/85 md:flex-row md:items-center md:justify-between">
       <p>© {new Date().getFullYear()} {PERSON.fullName}</p>
-      <p>{lang === 'es' ? 'Construido con Astro, Tailwind y buenas practicas CWV/SEO/Accesibilidad.' : 'Built with Astro, Tailwind, and WCAG/SEO/CWV best practices.'}</p>
+      <p>
+        {lang === 'es'
+          ? 'Construido con Astro + Tailwind · criterios CWV, SEO y accesibilidad'
+          : 'Built with Astro + Tailwind · CWV, SEO, accessibility criteria'}
+      </p>
     </div>
   </div>
 </footer>
